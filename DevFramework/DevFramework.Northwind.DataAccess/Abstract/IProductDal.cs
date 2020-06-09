@@ -1,4 +1,5 @@
 ﻿using DevFramework.Core.DataAccess;
+using DevFramework.Northwind.Entities.ComplexTypes;
 using DevFramework.Northwind.Entities.Concree;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,6 @@ namespace DevFramework.Northwind.DataAccess.Abstract
 {
    public interface IProductDal :IEntityRepository<Product>
     {
-        //Ürün adı ve kategordi dönsün
+        List<ProductDetail> GetProductWithCategoryName();
     }
 }

@@ -19,6 +19,7 @@ namespace DevFramework.Northwind.DataAccess.Concrete.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ProductMap());
+            modelBuilder.Configurations.Add(new CategoryMap());
         }
     }
 }

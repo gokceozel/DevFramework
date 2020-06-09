@@ -6,8 +6,8 @@ using System.Text;
 
 namespace DevFramework.Northwind.DataAccess.Abstract
 {
-   public interface IProductDal :IEntityRepository<Product>
+   public  interface ICategoryDal : IEntityRepository<Category>
     {
-        //Ürün adı ve kategordi dönsün
+        
     }
 }

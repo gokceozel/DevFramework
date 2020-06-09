@@ -1,5 +1,7 @@
 ﻿
 using DevFramework.Core.DataAccess.NHibranate;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,10 @@ namespace DevFramework.Northwind.DataAccess.Concrete.NHibernate.Helper
     {
         protected override ISessionFactory InitializeFactory()
         {
-            throw new NotImplementedException();
+            return Fluently.Configure().Database(MsSqlConfiguration.MsSql2012
+                    .ConnectionString(c => c.FromConnectionStringWithKey("NorthwindContext")))
+                .Mappings(t => t.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
+                .BuildSessionFactory();
         }
 
     }

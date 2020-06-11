@@ -9,6 +9,7 @@
     <PackageReference Include="fluentnhibernate" Version="2.0.3" />
     <PackageReference Include="FluentValidation" Version="6.4.1" />
     <PackageReference Include="nhibernate" Version="5.2.7" />
+    <PackageReference Include="PostSharp" Version="4.2.17" />
   </ItemGroup>
 
 </Project>

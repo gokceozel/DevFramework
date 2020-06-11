@@ -52,11 +52,6 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         }
 
       
-        public void TransactionalOperation(Product product1, Product product2)
-        {
-            _productDal.Add(product1);
-            // Business Codes
-            _productDal.Update(product2);
-        }
+   
     }
 }

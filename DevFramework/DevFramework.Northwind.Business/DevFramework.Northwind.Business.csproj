@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="6.4.1" />
+    <PackageReference Include="Ninject" Version="3.2.2" />
   </ItemGroup>
 
   <ItemGroup>

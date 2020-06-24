@@ -16,6 +16,9 @@ using DevFramework.Core.Aspects.Postsharp.ValidationAspects;
 using DevFramework.Core.DataAccess;
 using NHibernate.Criterion;
 using DevFramework.Core.Aspects.Postsharp.TransactionAspects;
+using DevFramework.Core.Aspects.Postsharp.CacheAspects;
+using System.Runtime.Caching;
+using DevFramework.Core.CrossCuttingConcerns.Caching.Microsoft;
 
 namespace DevFramework.Northwind.Business.Concrete.Managers
 {
@@ -28,7 +31,7 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
             _productDal = productDal;
         }
 
-        
+        [CacheAspect(typeof(MemoryCacheManager))]
         public List<Product> GetAll()
         {
             return _productDal.GetList();
@@ -41,7 +44,7 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         }
 
         [FluentValidationAspect(typeof(ProductValidatior))]
-    
+        [CacheRemoveAspect(typeof(MemoryCacheManager))]
         public Product Add(Product product)
         {
             return _productDal.Add(product);

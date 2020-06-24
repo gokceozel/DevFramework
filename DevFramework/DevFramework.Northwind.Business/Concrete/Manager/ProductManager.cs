@@ -14,6 +14,8 @@ using DevFramework.Core.Aspects.Postsharp;
 using DevFramework.Core.Aspects.Postsharp.ValidationAspects;
 
 using DevFramework.Core.DataAccess;
+using NHibernate.Criterion;
+using DevFramework.Core.Aspects.Postsharp.TransactionAspects;
 
 namespace DevFramework.Northwind.Business.Concrete.Managers
 {
@@ -51,7 +53,11 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
             return _productDal.Update(product);
         }
 
-      
-   
+        [TransactionScopeAspect]
+        public void TransactionalOperation(Product p, Product p2)
+        {
+            _productDal.Add(p);
+            _productDal.Add(p2);
+        }
     }
 }

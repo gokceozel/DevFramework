@@ -8,8 +8,10 @@
     <PackageReference Include="EntityFramework" Version="6.1.3" />
     <PackageReference Include="fluentnhibernate" Version="2.0.3" />
     <PackageReference Include="FluentValidation" Version="6.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.5" />
     <PackageReference Include="nhibernate" Version="5.2.7" />
     <PackageReference Include="PostSharp" Version="4.2.17" />
+    <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
   </ItemGroup>
 
 </Project>

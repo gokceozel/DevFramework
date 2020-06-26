@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevFramework.Northwind.Entities.Concree;
+using DevFramework.Northwind.Entities.Concrete;
 using FluentValidation;
 
 namespace DevFramework.Northwind.Business.ValidationRules.FluentValidation

@@ -1,38 +1,39 @@
-﻿using DevFramework.Core.DataAccess.NHibranate;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DevFramework.Core.DataAccess.NHihabernate;
 using DevFramework.Northwind.DataAccess.Abstract;
 using DevFramework.Northwind.Entities.ComplexTypes;
-using DevFramework.Northwind.Entities.Concree;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
+using DevFramework.Northwind.Entities.Concrete;
+using NHibernate.Linq;
 
 namespace DevFramework.Northwind.DataAccess.Concrete.NHibernate
 {
-   public  class NhProductDal : NhEntityRepositoryBase<Product> ,IProductDal
+    public class NhProductDal:NhEntityRepositoryBase<Product>,IProductDal
     {
-        private NHibarnateHelper _nHibarnateHelper;
-
-        public NhProductDal(NHibarnateHelper nHibarnateHelper):base(nHibarnateHelper)
+        private NHibernateHelper _nHibernateHelper;
+        public NhProductDal(NHibernateHelper nHibernateHelper) : base(nHibernateHelper)
         {
-            _nHibarnateHelper = nHibarnateHelper;
+            _nHibernateHelper = nHibernateHelper;
         }
 
-        public List<ProductDetail> GetProductWithCategoryName()
+        public List<ProductDetail> GetProductDetails()
         {
-            using (var session=_nHibarnateHelper.OpenSession())
+            using (var session=_nHibernateHelper.OpenSession())
             {
                 var result = from p in session.Query<Product>()
-                             join c in session.Query<Category>()
-                             on p.CategoryId equals c.CategoryID
-                             select new ProductDetail()
-                             {
-                                 ProductId = p.ProductId,
-                                 ProductName = p.ProductName,
-                                 CategoryName = c.CategoryName
-                             };
+                    join c in session.Query<Category>() on p.CategoryId equals c.CategoryId
+                    select new ProductDetail
+                    {
+                        ProductId = p.ProductId,
+                        CategoryName = c.CategoryName,
+                        ProductName = p.ProductName
+                    };
 
                 return result.ToList();
+
             }
         }
     }

@@ -1,47 +1,56 @@
-﻿using DevFramework.Core.CrossCuttingConcerns.Caching;
-using PostSharp.Aspects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
+using DevFramework.Core.CrossCuttingConcerns.Caching;
+using PostSharp.Aspects;
 
 namespace DevFramework.Core.Aspects.Postsharp.CacheAspects
 {
     [Serializable]
-    public class CacheAspect :MethodInterceptionAspect
+    public class CacheAspect:MethodInterceptionAspect
     {
         private Type _cacheType;
-        private int _cacheByMinutes;
-        ICacheManager _cacheManager; //Memory REDİS
-        public CacheAspect(Type cachetype,int cacheByMinutes=60)
+        private int _cacheByMinute;
+        private ICacheManager _cacheManager;
+
+        public CacheAspect(Type cacheType, int cacheByMinute)
         {
-            _cacheType = cachetype;
-            _cacheByMinutes = cacheByMinutes;
+            _cacheType = cacheType;
+            _cacheByMinute = cacheByMinute;
         }
 
         public override void RuntimeInitialize(MethodBase method)
         {
-            if (typeof(ICacheManager).IsAssignableFrom(_cacheType) == false)
+            if (typeof(ICacheManager).IsAssignableFrom(_cacheType)==false)
             {
-                throw new Exception("Wrong Cache manager");
+                throw new Exception("Wrong Cache Manager");
             }
-            _cacheManager = (ICacheManager)Activator.CreateInstance(_cacheType);
+            _cacheManager = (ICacheManager) Activator.CreateInstance(_cacheType);
+
             base.RuntimeInitialize(method);
         }
+
         public override void OnInvoke(MethodInterceptionArgs args)
         {
             var methodName = string.Format("{0}.{1}.{2}",
                 args.Method.ReflectedType.Namespace,
-                args.Method.ReflectedType.Name, //class name
-                args.Method.Name //metot adı
-                );
-            var parametres = args.Arguments.ToList();
-            var key = string.Format("{0}({1})", methodName, string.Join(",", parametres.Select(x => x != null ? x.ToString() : "<Null>")));
-            if (_cacheManager.IsAdd(key)) //varsa olanı getir
+                args.Method.ReflectedType.Name,
+                args.Method.Name);
+            var arguments = args.Arguments.ToList();
+
+            var key = string.Format("{0}({1})", methodName,
+                string.Join(",", arguments.Select(x => x != null ? x.ToString() : "<Null>")));
+
+            if (_cacheManager.IsAdd(key))
+            {
                 args.ReturnValue = _cacheManager.Get<object>(key);
-            _cacheManager.Add(key, args.ReturnValue, _cacheByMinutes);
-          
+            }
+            base.OnInvoke(args);
+            _cacheManager.Add(key,args.ReturnValue,_cacheByMinute);
+
         }
     }
 }

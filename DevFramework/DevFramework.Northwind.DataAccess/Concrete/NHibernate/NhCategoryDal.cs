@@ -1,17 +1,18 @@
-﻿using DevFramework.Core.DataAccess.NHibranate;
-using DevFramework.Northwind.DataAccess.Abstract;
-using DevFramework.Northwind.Entities.Concree;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using DevFramework.Core.DataAccess.NHihabernate;
+using DevFramework.Northwind.DataAccess.Abstract;
+using DevFramework.Northwind.Entities.Concrete;
 
 namespace DevFramework.Northwind.DataAccess.Concrete.NHibernate
 {
-    public class NhCategoryDal : NhEntityRepositoryBase<Category>,ICategoryDal
+    public class NhCategoryDal:NhEntityRepositoryBase<Category>,ICategoryDal
     {
-        public NhCategoryDal(NHibarnateHelper nHibarnateHelper):base(nHibarnateHelper)
+        public NhCategoryDal(NHibernateHelper nHibernateHelper) : base(nHibernateHelper)
         {
-
         }
     }
 }

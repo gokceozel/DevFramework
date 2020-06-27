@@ -15,6 +15,9 @@ using DevFramework.Core.Aspects.Postsharp.TransactionAspects;
 using DevFramework.Core.Aspects.Postsharp.ValidationAspects;
 using DevFramework.Core.CrossCuttingConcerns.Caching.Microsoft;
 using DevFramework.Core.DataAccess;
+using DevFramework.Core.Aspects.Postsharp.LogAspects;
+using System.Data.Entity;
+using DevFramework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 
 namespace DevFramework.Northwind.Business.Concrete.Managers
 {
@@ -27,7 +30,8 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
             _productDal = productDal;
         }
 
-        
+        [CacheAspect(typeof(MemoryCacheManager))]
+        [LogAspect(typeof(DatabaseLogger))]
         public List<Product> GetAll()
         {
             return _productDal.GetList();
@@ -56,7 +60,6 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         public void TransactionalOperation(Product product1, Product product2)
         {
             _productDal.Add(product1);
-            // Business Codes
             _productDal.Update(product2);
         }
     }

@@ -10,6 +10,7 @@ namespace DevFramework.Core.CrossCuttingConcerns.Caching.Microsoft
 {
     public class MemoryCacheManager:ICacheManager
     {
+
         protected ObjectCache Cache => MemoryCache.Default;
 
         public T Get<T>(string key)

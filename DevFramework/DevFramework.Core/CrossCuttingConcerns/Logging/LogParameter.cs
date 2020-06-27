@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevFramework.Core.CrossCuttingConcerns.Logging
 {
-   public class LogParameter
+    public class LogParameter
     {
         public string Name { get; set; }
         public string Type { get; set; }
